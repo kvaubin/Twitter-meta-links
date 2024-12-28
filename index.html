@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Default Metadata -->
+    <meta property="og:title" content="View this Tweet">
+    <meta property="og:description" content="This is a Tweet shared with the blue Twitter logo!">
+    <meta property="og:image" content="https://raw.githubusercontent.com/yourusername/twitter-meta-links/main/twitter-logo.png">
+</head>
+<body>
+    <script>
+        // Get the 'url' query parameter
+        const params = new URLSearchParams(window.location.search);
+        const twitterUrl = params.get("url");
+
+        // Redirect to the provided Twitter URL if it exists
+        if (twitterUrl) {
+            window.location.href = twitterUrl;
+        } else {
+            document.body.innerHTML = "<h1>No URL provided!</h1>";
+        }
+    </script>
+</body>
+</html>
