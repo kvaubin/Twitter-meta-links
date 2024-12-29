@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Twitter Preview</title>
+    <title>Custom Tweet Preview</title>
 
-    <!-- Open Graph Meta Tags -->
+    <!-- Open Graph Meta Tags (used for iMessage, Facebook, etc.) -->
     <meta property="og:title" content="Example Tweet">
     <meta property="og:description" content="A custom tweet preview with the Twitter bird logo instead of the X logo.">
     <meta property="og:image" content="https://github.com/kvaubin/Twitter-meta-links/blob/main/IMG_1225.png?raw=true">
@@ -17,6 +17,8 @@
     <meta name="twitter:description" content="A custom tweet preview with the Twitter bird logo instead of the X logo.">
     <meta name="twitter:image" content="https://github.com/kvaubin/Twitter-meta-links/blob/main/IMG_1225.png?raw=true">
 
+    <!-- Open Graph Type (Optional) -->
+    <meta property="og:type" content="article">
 </head>
 <body>
     <h1>Custom Tweet Preview</h1>
@@ -28,21 +30,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         const tweetUrl = urlParams.get('url');
 
-        // Replace with your Bearer Token (Twitter API v2)
-        const BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAM4xxwEAAAAADmkdzdOHb0rQ8R7WaCDdr7qoxAw%3DCYzSoSuxDnfpsdmEl4uJCkn09CQJsQBCs3gJXqTuKi0jYM56Zp';
-
         async function fetchTweetData(tweetUrl) {
             const tweetId = tweetUrl.split('/').pop();  // Extract Tweet ID from URL
             const tweetApiUrl = `https://api.twitter.com/2/tweets/${tweetId}`;
 
-            // CORS proxy URL
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-
             try {
-                const response = await fetch(proxyUrl + tweetApiUrl, {
+                const response = await fetch(tweetApiUrl, {
                     headers: {
-                        'Authorization': `Bearer ${BEARER_TOKEN}`,
-                        'X-Requested-With': 'XMLHttpRequest'  // Required by CORS Proxy
+                        'Authorization': AAAAAAAAAAAAAAAAAAAAAM4xxwEAAAAADmkdzdOHb0rQ8R7WaCDdr7qoxAw%3DCYzSoSuxDnfpsdmEl4uJCkn09CQJsQBCs3gJXqTuKi0jYM56Zp
                     }
                 });
                 const data = await response.json();
@@ -55,7 +50,7 @@
         function displayTweet(data) {
             const tweet = data.data;
             const tweetText = tweet.text;
-            const userName = tweet.author_id;  // You may need to fetch user details based on author_id
+            const userName = tweet.author_id;  // You may need to fetch user details as well
 
             // Display the tweet on the page
             const tweetContainer = document.getElementById('tweet-container');
