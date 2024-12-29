@@ -1,0 +1,25 @@
+<script>
+    const tweetUrl = 'https://twitter.com/exampleUser/status/tweetId';
+
+    async function fetchTweetData() {
+        const response = await fetch(`/tweet?url=${tweetUrl}`);
+        const data = await response.json();
+
+        const tweetText = data.data.text;
+        const tweetUser = data.includes.users[0].username;
+
+        // Update meta tags with the fetched tweet data
+        document.querySelector('meta[property="og:title"]').setAttribute('content', tweetText);
+        document.querySelector('meta[property="twitter:title"]').setAttribute('content', tweetText);
+        document.querySelector('meta[property="og:description"]').setAttribute('content', tweetText);
+        document.querySelector('meta[property="twitter:description"]').setAttribute('content', tweetText);
+
+        // Display the tweet on the page
+        document.getElementById('tweet-container').innerHTML = `
+            <h2>Tweet from @${tweetUser}</h2>
+            <p>${tweetText}</p>
+        `;
+    }
+
+    fetchTweetData();
+</script>
