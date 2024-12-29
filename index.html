@@ -32,7 +32,7 @@
 
         // Replace with your Bearer Token (Twitter API v2)
         const BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAM4xxwEAAAAADmkdzdOHb0rQ8R7WaCDdr7qoxAw%3DCYzSoSuxDnfpsdmEl4uJCkn09CQJsQBCs3gJXqTuKi0jYM56Zp';
-        
+
         async function fetchTweetData(tweetUrl) {
             const tweetId = tweetUrl.split('/').pop();  // Extract Tweet ID from URL
             const tweetApiUrl = `https://api.twitter.com/2/tweets/${tweetId}`;
@@ -54,17 +54,22 @@
             const tweet = data.data;
             const tweetText = tweet.text;
             const userId = tweet.author_id;  // Author ID, but you may want to fetch the user's name
-            
+            const username = `@${tweet.author_id}`;  // Placeholder for username, can be improved by fetching user info if needed.
+
             // Update meta tags dynamically
             document.querySelector('meta[property="og:title"]').setAttribute('content', tweetText);
             document.querySelector('meta[property="og:description"]').setAttribute('content', tweetText);
             document.querySelector('meta[property="twitter:title"]').setAttribute('content', tweetText);
             document.querySelector('meta[property="twitter:description"]').setAttribute('content', tweetText);
             
+            // Update image meta tag to point to the Twitter bird logo
+            document.querySelector('meta[property="og:image"]').setAttribute('content', 'https://github.com/kvaubin/Twitter-meta-links/blob/main/IMG_1225.png?raw=true');
+            document.querySelector('meta[name="twitter:image"]').setAttribute('content', 'https://github.com/kvaubin/Twitter-meta-links/blob/main/IMG_1225.png?raw=true');
+
             // Display the tweet on the page
             const tweetContainer = document.getElementById('tweet-container');
             tweetContainer.innerHTML = `
-                <h2>Tweet from User ID: ${userId}</h2>
+                <h2>Tweet from ${username}</h2>
                 <p>${tweetText}</p>
                 <img src="https://github.com/kvaubin/Twitter-meta-links/blob/main/IMG_1225.png?raw=true" alt="Twitter Bird Logo">
             `;
